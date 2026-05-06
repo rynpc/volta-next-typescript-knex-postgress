@@ -1,13 +1,13 @@
-// lib/db.ts
+import 'server-only';
 import knex, { Knex } from 'knex';
 import config from '../knexfile';
 
-// Define the shape of our global variable
 declare global {
   var knexInstance: Knex | undefined;
 }
 
-const db = global.knexInstance || knex(config.development);
+const environment = process.env.NODE_ENV || 'development';
+const db = global.knexInstance || knex(config[environment]);
 
 if (process.env.NODE_ENV !== 'production') {
   global.knexInstance = db;

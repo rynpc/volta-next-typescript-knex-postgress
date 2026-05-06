@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run db:migrate && next dev",
+    "build": "next build --webpack", 
     "start": "next start",
-    "lint": "eslint",
+    "lint": "next lint",
     "db:migrate": "knex migrate:latest --knexfile knexfile.ts",
     "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "knex": "^3.2.10",

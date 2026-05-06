@@ -34,12 +34,21 @@ const config: { [key: string]: Knex.Config } = {
 
   production: {
     client: "pg",
-    connection: {
-      // Best practice: use a single connection string for production
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-    },
-    pool: { min: 2, max: 10 }, // Pooling handles multiple concurrent users
+    connection: process.env.DATABASE_URL 
+      ? { 
+          connectionString: process.env.DATABASE_URL, 
+          ssl: { rejectUnauthorized: false } 
+        }
+      : {
+          // Fallback to local Docker settings for local builds
+          host: "localhost",
+          port: 5432,
+          user: "postgres",
+          password: "password",
+          database: "my_next_db",
+          ssl: false
+        },
+    pool: { min: 2, max: 10 },
     migrations: {
       extension: "ts",
       directory: "./migrations",
