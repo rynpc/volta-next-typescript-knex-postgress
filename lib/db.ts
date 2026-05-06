@@ -1,4 +1,3 @@
-import 'server-only';
 import knex, { Knex } from 'knex';
 import config from '../knexfile';
 
@@ -7,7 +6,8 @@ declare global {
 }
 
 const environment = process.env.NODE_ENV || 'development';
-const db = global.knexInstance || knex(config[environment]);
+const dbConfig = config[environment] || config.development;
+const db = global.knexInstance || knex(dbConfig);
 
 if (process.env.NODE_ENV !== 'production') {
   global.knexInstance = db;
