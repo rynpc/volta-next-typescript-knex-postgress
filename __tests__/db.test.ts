@@ -1,6 +1,6 @@
 // __tests__/db.test.ts
 import { describe, it, expect, afterAll } from 'vitest';
-import db from '@/lib/db';
+import db from "../lib/db";
 
 describe('Database Connection', () => {
   // Check if we can reach the users table we just migrated
